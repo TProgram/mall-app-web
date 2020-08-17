@@ -1,0 +1,31 @@
+<view class="container">
+	<!--商品搜索-->
+	<view class="search">
+		<navigator url="/pages/search/search" class="input">
+			<image class="icon"></image>
+			<text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
+		</navigator>
+	</view>
+	<!--轮播广告-->
+	<swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+		<swiper-item wx:for="{{banner}}" wx:key="{{item.id}}">
+			<navigator url="{{item.url}}">
+				<image src="{{item.pic}}" background-size="cover"></image>
+			</navigator>
+		</swiper-item>
+	</swiper>
+	<view class="a-section a-new" wx:if="{{hotGoods.length > 0}}">
+		<view class="b">
+			<view class="item" wx:for="{{hotGoods}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
+				<navigator url="../goods/goods?id={{item.id}}">
+					<image class="img" src="{{item.pic}}" background-size="cover"></image>
+					<text class="name">{{item.name || ''}}</text>
+					<view class="tx price">
+						<text class='pri dzprice'>￥{{item.price || '0.00'}}</text>
+					</view>
+					<text class="price">￥{{item.originalPrice}}</text>
+				</navigator>
+			</view>
+		</view>
+	</view>
+</view>

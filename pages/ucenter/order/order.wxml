@@ -1,0 +1,63 @@
+<view class="container">
+	<view class="order_me">
+		<view class="li {{ orderId =='-1'  ? 'active' : ''}}" data-id="-1" bindtap="switchCate">全部</view>
+		<view class="li {{ orderId == 0 ? 'active' : ''}}" data-id="0" bindtap="switchCate">待付款</view>
+		<!--<view class="li {{ orderId == 1 ? 'active' : ''}}" data-id="1" bindtap="switchCate">待发货</view>-->
+		<view class="li {{ orderId == 2 ? 'active' : ''}}" data-id="2" bindtap="switchCate">待收货</view>
+		<view class="li {{ orderId == 3 ? 'active' : ''}}" data-id="3" bindtap="switchCate">已完成</view>
+		<view class="li {{ orderId == 4 ? 'active' : ''}}" data-id="4" bindtap="switchCate">已取消</view>
+	</view><!-- -1->全部；0->待付款；1->待发货；2->已发货(待收货）；3->已完成；4->已关闭(已取消）-->
+	<view class="orders">
+		<navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" wx:for="{{orderList}}" wx:key="{{item.id}}">
+			<view class="order-goods">
+				<view class="h">
+					<view class="label">商品信息</view>
+					<view class="status" wx:if="{{item.status==0}}">待付款</view>
+					<view class="status" wx:if="{{item.status==1}}">待发货</view>
+					<view class="status" wx:if="{{item.status==2}}">待收货</view>
+					<view class="status" wx:if="{{item.status==3}}">已完成</view>
+					<view class="status" wx:if="{{item.status==4}}">已取消</view>
+				</view>
+				<view class="goods">
+					<!-- 双层遍历展示订单中商品信息 -->
+					<view class="item" wx:for="{{item.orderItemList}}" wx:for-item="goodsItem" wx:key="{{goodsItem.id}}">
+						<view class="img">
+							<image src="{{goodsItem.productPic}}"></image>
+						</view>
+						<view class="info">
+							<view class="t">
+								<text class="name">{{goodsItem.productName}}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="b" wx:for="{{item.orderItemList}}" wx:for-item="goodsItem" wx:key="{{goodsItem.id}}">
+					<view class="r">共{{goodsItem.productQuantity}}件商品 需付款：￥{{item.payAmount}}</view>
+				</view>
+				<view class="b" wx:for="{{item.orderItemList}}" wx:for-item="goodsItem" wx:key="{{goodsItem.id}}">
+					<view class="r">
+						<button class="btn gopay" data-order-index="{{index}}" catchtap="payOrder" wx:if="{{item.status==0}}">去付款</button>
+						<button class="btn gocancel" data-order-index="{{index}}" catchtap="cancelOrder" wx:if="{{item.status!=4}}">取消订单</button>
+						<button class="btn gopay" data-order-index="{{index}}" catchtap="confirmOrder" wx:if="{{item.status==2}}">确认收货</button>
+						<button class="btn gopay" data-order-index="{{index}}" catchtap="buyOrder" wx:if="{{item.status==3||item.status==4}}">再次购买</button>
+					</view>
+				</view>
+			</view>
+		</navigator>
+	</view>
+
+	<view wx:if="{{orderList.length>6}}" class="loadmore">
+		<block wx:if="{{nomore}}">
+			<text>{{nomoreText}}</text>
+		</block>
+		<block wx:else>
+			<text class="iconfont icon-loading loading" space="nbsp"></text>
+			<text> {{loadmoreText}}</text>
+		</block>
+	</view>
+
+	<view class="empty-view" wx:if="{{ orderList.length <= 0 }}">
+		<image class="icon" src="/static/images/allorder.png"></image>
+		<text class="text">无订单数据</text>
+	</view>
+</view>

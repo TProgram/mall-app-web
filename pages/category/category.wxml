@@ -1,0 +1,31 @@
+<view class="container">
+	<scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height:{{scrollHeight}};">
+		<view class="cate-item">
+			<view class="h" wx:if="{{goodsList.length<0}}">
+				<text class="name">{{goodsList.productCategoryName}}</text>
+			</view>
+			<view class="b">
+				<!--点击商品跳转至对应的商品详情页-->
+				<navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+					<image class="img" src="{{iitem.pic}}" background-size="cover"></image>
+					<text class="name">{{iitem.name}}</text>
+					<text class="price">￥{{iitem.price}}</text>
+				</navigator>
+			</view>
+		</view>
+		<view wx:if="{{goodsList.length>4}}" class="loadmore">
+			<block wx:if="{{nomore}}">
+				<text>{{nomoreText}}</text>
+			</block>
+			<block wx:else>
+				<text class="iconfont icon-loading loading" space="nbsp"></text>
+				<text> {{loadmoreText}}</text>
+			</block>
+		</view>
+	</scroll-view>
+	<!--若该分类下无商品，显示对应的图标及提示语-->
+	<view class="empty-view" wx:if="{{ goodsList.length <= 0 }}">
+		<image class="icon" src="/static/images/allorder.png"></image>
+		<text class="text">无产品数据</text>
+	</view>
+</view>

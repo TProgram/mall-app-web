@@ -1,0 +1,35 @@
+<view class="container">
+	<!--顶部搜索栏-->
+	<view class="search">
+		<navigator url="/pages/search/search" class="input">
+			<image class="icon"></image>
+			<text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
+		</navigator>
+	</view>
+	<!--分类列表-->
+	<view class="catalog">
+		<!--页面左侧一级分类列表-->
+		<scroll-view class="nav" scroll-y="true">
+			<view class="item {{ currentCategory.id == item.id ? 'active' : ''}}" wx:for="{{navList}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">{{item.name}}</view>
+		</scroll-view>
+		<scroll-view class="cate" scroll-y="true">
+			<navigator url="url" class="banner">
+				<image class="image" src="{{currentInfo.icon}}"></image>
+			</navigator>
+			<view class="hd">
+				<text class="line"></text>
+				<text class="txt">{{currentInfo.name}}分类</text>
+				<text class="line"></text>
+			</view>
+			<!--二级分类展示-->
+			<view class="bd">
+				<view class="item" wx:for="{{currentCategory}}" wx:for-index="catalog" wx:for-item="item" wx:key="{{item.id}}">
+					<navigator url="/pages/category/category?id={{item.id}}">
+						<image class="icon" src="{{item.icon}}"></image>
+						<text class="txt">{{item.name}}</text>
+					</navigator>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+</view>

@@ -1,0 +1,122 @@
+<scroll-view class="container" style="height: {{winHeight}}rpx" scroll-y="true">
+	<view wx:if="{{!openAttr}}">
+		<view class='swiBox'>
+    <!--商品展示-->
+			<swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+				<swiper-item wx:for="{{gallery}}" wx:key="{{item.id}}">
+					<image src="{{gallery}}" background-size="cover"></image>
+				</swiper-item>
+			</swiper>
+		</view>
+    <!--商品信息-->
+		<view class="goods-info">
+			<view class="c">
+				<view class="tx price">
+					<text class='pri dzprice'>￥{{goods.price || '0.00'}}</text>
+					<text class='pri yjprice'>原价：￥{{goods.originalPrice || '0.00'}}</text>
+					<!--备注：后台无佣金字段-->
+					<text class='pri brokerage'>佣金：￥{{goods.user_brokerage_price || '0.00'}}</text>
+					<button open-type="share" class='icon_fx'></button>
+				</view>
+				<view class="tx tsbox">
+					<text class="name">{{goods.name || ''}}</text>
+				</view>
+				<text class="tx desc" wx:if="{{goods.subTitle}}">{{goods.subTitle}}</text>
+				<!--产品原型里面这个地方没有品牌显示，所以就先注释掉~-->
+				<view class="brand" wx:if="{{brand.name}}">
+					<!--<navigator url="../brandDetail/brandDetail?id={{brand.id}}">
+            <text>{{brand.name}}</text>
+          </navigator>-->
+				</view>
+			</view>
+		</view>
+		<view class="section-nav section-attr" bindtap="switchAttrPop">
+			<view class="t">请选择规格数量</view>
+			<image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
+		</view>
+		<!--商品参数详情-->
+		<view class="goods-attr">
+			<view class="t">商品参数</view>
+			<view class="l">
+				<view class="item" wx:for="{{attribute}}" wx:key="{{item.id}}">
+					<text class="left">{{item.name}}</text>
+					<text class="right">{{item.inputList}}</text>
+					<!--value-->
+				</view>
+			</view>
+		</view>
+
+		<view class="detail">
+			<import src="../../lib/wxParse/wxParse.wxml" />
+			<template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+		</view>
+
+		<view class="common-problem">
+			<view class="h">
+				<view class="line"></view>
+				<text class="title">常见问题</text>
+			</view>
+			<view class="b">
+				<view class="item" wx:for="{{issueList}}" wx:key="{{item.id}}">
+					<view class="question-box">
+						<text class="spot"></text>
+						<text class="question">{{item.question}}</text>
+					</view>
+					<view class="answer">
+						{{item.answer}}
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<!--选择规格数量-->
+	<view wx:if="{{openAttr}}" class="attr-pop">
+		<view class="img-info">
+			<image class="img" src="{{proImg?proImg:goods.pic}}"></image>
+			<view class="info">
+				<view class="c">
+					<view class="p">价格：￥{{checkedSpecPrice?checkedSpecPrice:goods.price}}</view>
+				</view>
+			</view>
+		</view>
+		<view class="spec-con">
+			<view class="values">
+				<view class="value {{vitem.checked ? 'selected' : ''}} {{vitem.state ? 'attr_value_disabled' : ''}}" bindtap="clickSkuValue" wx:for="{{specificationList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-stock="{{vitem.stock}}" data-price="{{vitem.price}}" data-name-id="{{vitem.id}}">{{vitem.spData}}</view>
+			</view>
+			<view class="number-item">
+				<view class="name">数量</view>
+				<view class="selnum">
+					<view class="cut" bindtap="cutNumber">-</view>
+					<input value="{{number}}" class="number" disabled="true" type="number" />
+					<view class="add" bindtap="addNumber">+</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+</scroll-view>
+
+<view class="bottom-btn" wx:if="{{cimPart}}">
+	<view class="l l-collect homeBox" bindtap="goUrl">
+		<image class="icon" src="../../static/images/ic_menu_choice_nor.png"></image>
+		<text>首页</text>
+	</view>
+	<view class="l l-collect {{ openAttr ? 'back' : ''}}" bindtap="closeAttrOrCollect">
+		<image class="icon" src="{{ backImage }}"></image>
+	</view>
+	<view class="l l-cart" wx:if="{{type!=1&type!=2}}">
+		<view class="box">
+			<text class="cart-count">{{cartGoodsCount}}</text>
+			<image bindtap="openCartPage" class="icon" src="/static/images/ic_menu_shoping_nor.png"></image>
+
+		</view>
+	</view>
+	<!--TOOD:立即购买功能应本项目所使用的后台开源项目无相应接口，故该功能暂未开发实现-->
+	<button class="{{type==2?'r':'c'}}" data-ntype="2" wx:if="{{type==0 || type==2}}" disabled="{{isY}}" bindtap="buyGoods">{{type==2?'立即秒杀':'立即购买'}}</button>
+	<button class="c" data-activitytype="1" disabled="{{isY}}" wx:if="{{type==1}}" bindtap="buyGoods">单独购买¥{{yprice || goods.retail_price}}</button>
+	<button class="r" wx:if="{{type==0}}" bindtap="addToCart">加入购物车</button>
+</view>
+<view class="bottom-btn" wx:else>
+	<button class="r" data-activitytype="2" data-groupBuyingId="{{groupBuyingId}}" data-ntype="1" bindtap="buyGoods">确定</button>
+</view>

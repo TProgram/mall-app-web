@@ -1,0 +1,28 @@
+<view class="add-address">
+	<view class="add-form">
+		<view class="form-item">
+			<input class="input" bindinput="bindinputName" placeholder="姓名" value="{{address.userName}}" auto-focus />
+		</view>
+		<view class="form-item">
+			<input class="input" bindinput="bindinputMobile" value="{{address.telNumber}}" maxlength="15" type="number" placeholder="手机号码" />
+		</view>
+		<view class="form-item">
+			<picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+				<view class="picker">
+					{{region[0]}}，{{region[1]}}，{{region[2]}}
+				</view>
+			</picker>
+		</view>
+		<view class="form-item">
+			<input class="input" bindinput="bindinputAddress" value="{{address.detailAddress}}" placeholder="详细地址, 如街道、楼盘号等" auto-focus />
+		</view>
+		<view class="form-default">
+			<text bindtap="bindIsDefault" class="default-input {{address.is_default == 1 ? 'selected' : ''}}">设为默认地址</text>
+		</view>
+	</view>
+
+	<view class="btns">
+		<button class="cannel" bindtap="cancelAddress">取消</button>
+		<button class="save" bindtap="saveAddress">保存</button>
+	</view>
+</view>
