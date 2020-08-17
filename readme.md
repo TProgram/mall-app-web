@@ -3,11 +3,13 @@
 ## 前言
 
 `mall-shop`项目建造了一个前后端分离的电商小程序项目
+
+> 本项目前后端分别来源于不同的开源项目，我们的团队也对其进行了相应的修改、结合、完善。当前所实现的商城小程序基本实现了电子商城的基本功能，不足的地方我们也会在之后陆续进行进一步更新完善，也希望该项目能对大家有所帮助。
 ## 项目背景说明
 `mall-shop`项目起源于我们团队想要尝试做一个前后端分离的电商小程序，在经过相关调研筛选，我们发现了在开源社区具有比较大技术影响力的[mall](https://github.com/macrozheng/mall)项目。
 
 [mall](https://github.com/macrozheng/mall)项目是一套基于SpringBoot+MyBatis实现的电商系统
-![mall项目开源使用情况](/image/mall开源情况.png)
+![mall项目开源使用情况](./image/mall开源情况.png)
 该开源项目中只包含有后台和前台管理前端项目，缺少一个C端项目，而在项目的ISSUE里对于该前端项目需求比较大。
 
 故而，在本项目的开发实现中，我们的后端采用了[mall](https://github.com/macrozheng/mall)项目。
@@ -23,9 +25,9 @@ mall-shop项目实现的是一个前后端分离的电商小程序，包括前�
 前台商城小程序系统包含首页门户、商品推荐、商品分类、商品搜索、商品详情展示、购物车、加购&下单等订单流程、个人中心、订单管理、客户服务等模块。
 ### 项目相关地址
 #### 后端
-后端mall项目地址：https://git.code.tencent.com/TProgram/mall.git
+后端mall项目地址：https://github.com/TProgram/mall
 
-后台管理系统mall-admin-web项目地址：https://git.code.tencent.com/TProgram/mall-admin-web.git
+后台管理系统mall-admin-web项目地址：https://github.com/macrozheng/mall-admin-web
 
 
 ## 项目组织架构（前端）
@@ -44,15 +46,12 @@ mall-shop项目实现的是一个前后端分离的电商小程序，包括前�
 
 ## 小程序部分页面效果展示
 ### 首页：
-![首页](/image/首页.png)
+![首页](./image/首页.png)
 ### 商品分类：
-![分类](/image/分类.png)
+![分类](./image/分类.png)
 ### 购物车
-![购物车](/image/购物车.png)
+![购物车](./image/购物车.png)
 ### 个人中心
-![我的](/image/我的.png)
+![我的](./image/我的.png)
 ### 订单管理
-![订单管理](/image/订单管理.png)
-
-
-##### 本项目前后端分别来源于不同的开源项目，我们的团队也对其进行了相应的修改、结合、完善。当前所实现的商城小程序基本实现了电子商城的基本功能，不足的地方我们也会在之后陆续进行进一步更新完善，也希望该项目能对大家有所帮助。
+![订单管理](./image/订单管理.png)
