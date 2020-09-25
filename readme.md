@@ -24,6 +24,7 @@
 mall-shop项目实现的是一个前后端分离的电商小程序，包括前台商城系统及后台管理系统，后端基于SpringBoot+MyBatis实现，采用Docker容器化部署。
 前台商城小程序系统包含首页门户、商品推荐、商品分类、商品搜索、商品详情展示、购物车、加购&下单等订单流程、个人中心、订单管理、客户服务等模块。
 ### 项目相关地址
+[码云地址](https://gitee.com/tPrograming/mall-app-web): https://gitee.com/tPrograming/mall-app-web
 #### 后端
 后端mall项目地址：https://github.com/TProgram/mall
 
